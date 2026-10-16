@@ -121,9 +121,6 @@ Clearing site data resets all progress.
 - **Code:** written with Claude, an AI assistant by Anthropic.
 - **Created by** Carlos Nada, keychessapp@gmail.com
 
-## Support
-
-KeyChess is free. If it helps you and you want to say thanks, the in-app `$` page explains how to help the dogs and cats that show up at the author's small farm. Gifts are voluntary and unlock nothing.
 
 <!--
 **keychessapp/keychessapp** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
