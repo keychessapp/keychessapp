@@ -31,7 +31,7 @@ h3{margin:10px 4px 2px;font-size:14px;color:var(--mu);font-weight:600}
 .top{display:flex;align-items:center;gap:8px;height:40px}.top b{flex:1;text-align:center}
 .top button{width:40px;height:36px}
 .info{display:flex;gap:8px;justify-content:center;height:26px;color:var(--mu);font-size:14px}.info span{padding:2px 10px;border:1px solid var(--bd);border-radius:14px}
-#board{--bs:min(calc(100vw - 16px),calc(100dvh - 440px));width:var(--bs);height:var(--bs);min-width:260px;min-height:260px;max-width:464px;max-height:464px;align-self:center;display:grid;grid-template-columns:repeat(8,1fr);border-radius:6px;overflow:hidden}
+#board{flex:none;--bs:min(calc(100vw - 16px),calc(100dvh - 490px));width:var(--bs);height:var(--bs);min-width:260px;min-height:260px;max-width:464px;max-height:464px;align-self:center;display:grid;grid-template-columns:repeat(8,1fr);border-radius:6px;overflow:hidden}
 .sq{position:relative;background-size:92%;background-position:center;background-repeat:no-repeat}.sq.l{background-color:var(--bl)}.sq.d{background-color:var(--bk)}.sq.h{box-shadow:inset 0 0 0 100px rgba(255,255,160,.35)}
 .rk,.fl{position:absolute;font-size:10px;font-weight:700;line-height:1}.rk{left:3px;top:2px}.fl{right:3px;bottom:2px}.l .rk,.l .fl{color:#555}.d .rk,.d .fl{color:#e6e6e6}
 .info #tn{width:24px;height:24px;padding:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border:2px solid #8a8a8a}.turn.w{background:#fff;color:#000}.turn.b{background:#000;color:#fff}.info{gap:6px;white-space:nowrap}.info span{padding:2px 8px}.info .sl{border:0;padding:0;font-size:13px}.sw{width:36px;height:20px;border-radius:10px;padding:0;position:relative;flex:none;background:var(--bd)}.sw i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--mu);transition:left .15s}.sw.on{background:var(--tx)}.sw.on i{left:18px;background:var(--on)}.hq{width:22px!important;height:22px!important;font-size:13px;padding:0}
@@ -42,7 +42,7 @@ h3{margin:10px 4px 2px;font-size:14px;color:var(--mu);font-weight:600}
 #er{position:absolute;right:6px;top:6px;display:flex;gap:4px}#er button{width:34px;height:32px;padding:0}
 #kb{display:flex;flex-direction:column;gap:5px}.row{display:flex;gap:5px}.row button{flex:1;height:40px;padding:0;color:var(--kt);background:var(--kb)}
 .row .w2{flex:2}.row .w3{flex:3}.row .pc{font-size:22px}
-#msg{height:20px;text-align:center;font-weight:600}#act{display:none;gap:8px}#act button{flex:1;height:42px}
+#msg{height:20px;text-align:center;font-weight:600}#act{display:flex;visibility:hidden;gap:8px}#act button{flex:1;height:42px}
 #chk{height:46px;background:var(--tx);color:var(--on);font-weight:700}
 #cs{position:fixed;inset:0;background:#000c;display:none;align-items:center;justify-content:center}#cs div{background:var(--sf);border:1px solid var(--bd);border-radius:16px;padding:24px;text-align:center}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.grid3 .tile{padding:10px 3px;min-height:46px;font-size:14px;line-height:1.15}
@@ -3558,7 +3558,7 @@ function draw(g,hl){const b=g.board(),el=$('#board');el.innerHTML='';const R=sid
  R.forEach(r=>C.forEach(c=>{const q=FILES[c]+(8-r),p=b[r][c],d=document.createElement('div');d.className='sq '+((r+c)%2?'d':'l')+(hl.includes(q)?' h':'');if(c==C[0])d.insertAdjacentHTML('beforeend','<b class="rk">'+(8-r)+'</b>');if(r==R[7])d.insertAdjacentHTML('beforeend','<b class="fl">'+FILES[c]+'</b>');if(p)d.style.backgroundImage='url('+(SETS[pref.ps]||SETS.chessnut)[p.color+p.type.toUpperCase()]+')';el.append(d)}))}
 function next(){if(MODE=='session'&&idx>=L.length)return finish();if(MODE=='review'&&idx>=L.length)return modal('Review round done. '+rev.length+' left.',()=>go('train'));pz=L[idx++%L.length];resolved=false;wrongSeen=false;if(MODE=='review')$('#tt').textContent='Review \u00B7 '+(TL[pz[4]]||'');const m=pz[2].split(' ');G=new Chess(pz[1]);side=G.turn()=='w'?'b':'w';sol=m.slice(1);$('#tn').className='turn '+side;$('#tn').textContent=side=='w'?'W':'B';ent=[];cur='';state='play';
  draw(G,[]);setTimeout(()=>{mv(G,m[0]);wood();after=G.fen();draw(G,[m[0].slice(0,2),m[0].slice(2,4)]);render()},450);
- after=null;$('#mv').textContent='Moves: '+sol.length;$('#rg').textContent='★ '+pz[3];$('#msg').textContent='';$('#act').style.display='none';$('#sc').textContent=cnt();
+ after=null;$('#mv').textContent='Moves: '+sol.length;$('#rg').textContent='★ '+pz[3];$('#msg').textContent='';$('#act').style.visibility='hidden';$('#sc').textContent=cnt();
  // compute "after" now so typing never waits
  const t=new Chess(pz[1]);mv(t,m[0]);after=t.fen();render()}
 function evalLine(){const g=new Chess(after),o=[];let good=true;for(const t of ent){if(!good){o.push({t,bad:1,dim:1});continue}const m=g.moves({verbose:true}).find(x=>norm(x.san)==norm(t));if(!m){o.push({t,bad:1});good=false;continue}g.move(m.san);o.push({t:m.san,u:m.from+m.to+(m.promotion||''),mate:g.isCheckmate()})}return o}
@@ -3569,10 +3569,10 @@ function render(wrong){if(!after)return;const ev=evalLine(),f=after.split(' ');l
  $('#tx').innerHTML=h+'<i></i>';$('#box').scrollTop=1e5;return ev}
 function check(){if(state!='play'&&state!='wrong'||!after)return;if(cur){ent.push(cur);cur=''}const ev=evalLine();
  const good=ev.length==sol.length&&ev.every((e,i)=>!e.bad&&(e.u==sol[i]||(i==sol.length-1&&e.mate)));
- if(good){if(!resolved){resolved=true;resolve(!wrongSeen,true)}ending(true)}else{wrongSeen=true;state='wrong';render(true);$('#msg').style.color='var(--red)';$('#msg').textContent='Wrong';$('#act').style.display='flex'}}
+ if(good){if(!resolved){resolved=true;resolve(!wrongSeen,true)}ending(true)}else{wrongSeen=true;state='wrong';render(true);$('#msg').style.color='var(--red)';$('#msg').textContent='Wrong';$('#act').style.visibility='visible'}}
 function ending(win){state='done';const g=new Chess(after);let i=0;$('#msg').style.color='var(--grn)';$('#msg').textContent=win?'Correct!':'Solution';
- const step=()=>{if(i>=sol.length){if(win)chime();$('#act').style.display='flex';$('#sh').style.display='none';return}mv(g,sol[i]);wood();draw(g,[sol[i].slice(0,2),sol[i].slice(2,4)]);i++;setTimeout(step,650)};
- draw(G=new Chess(after),[]);$('#act').style.display='none';setTimeout(step,300)}
+ const step=()=>{if(i>=sol.length){if(win)chime();$('#act').style.visibility='visible';$('#sh').style.display='none';return}mv(g,sol[i]);wood();draw(g,[sol[i].slice(0,2),sol[i].slice(2,4)]);i++;setTimeout(step,650)};
+ draw(G=new Chess(after),[]);$('#act').style.visibility='hidden';setTimeout(step,300)}
 $('#chk').onclick=check;$('#sh').onclick=()=>{if(state!='done'){if(!resolved){resolved=true;resolve(false,false)}ending(false)}};$('#nx').onclick=()=>{if(!resolved){resolved=true;resolve(false,false)}$('#sh').style.display='';next()};
 const KEYS=[['♚\uFE0E:K','♛\uFE0E:Q','♜\uFE0E:R','♝\uFE0E:B','♞\uFE0E:N'],[...'abcdefgh'],[...'12345678'],['x','+','#','=','⌫:BS'],['O-O','Space:SP','O-O-O']];
 KEYS.forEach((r,ri)=>{const d=document.createElement('div');d.className='row';r.forEach(k=>{const[l,v]=k.includes(':')&&k.length>1?k.split(':'):[k,k],b=document.createElement('button');b.textContent=l;b.dataset.k=v;if(ri==0)b.classList.add('pc');if(v=='SP')b.className='w2';b.onclick=()=>key(v);d.append(b)});$('#kb').append(d)});
