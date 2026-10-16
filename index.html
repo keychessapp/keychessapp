@@ -3507,7 +3507,7 @@ let pref=ld('kc_pref',{n:25,b:2}),sess=ld('kc_s',[]),rev=ld('kc_r',[]),st=ld('kc
 if(pref.h===undefined)pref.h=true;if(!pref.th)pref.th='black';if(!pref.ps)pref.ps='chessnut';document.documentElement.dataset.th=pref.th;
 let L=[],idx=0,MODE='',S=null,TH='',FROM='home',runClean=0,resolved=false,wrongSeen=false,G,pz,after,sol,ent,cur,side,state,ok=0,ko=0,audio,mo=new Date(new Date().getFullYear(),new Date().getMonth(),1);
 function tone(f,t,d,v,ty){try{audio=audio||new(window.AudioContext||window.webkitAudioContext)();audio.resume();const a=audio,o=a.createOscillator(),g=a.createGain(),s=a.currentTime+t;o.type=ty||'sine';o.frequency.value=f;g.gain.setValueAtTime(v,s);g.gain.exponentialRampToValueAtTime(.001,s+d);o.connect(g);g.connect(a.destination);o.start(s);o.stop(s+d+.02)}catch(e){}}
-const wood=()=>{tone(230,0,.09,.5,'triangle');tone(115,0,.07,.4)},chime=()=>{tone(880,0,.5,.25);tone(1318.5,.12,.7,.22)};
+const wood=()=>{tone(520,0,.05,.7,'triangle');tone(230,0,.09,.7,'triangle');tone(115,0,.07,.5)},chime=()=>{tone(880,0,.5,.25);tone(1318.5,.12,.7,.22)};
 const mv=(g,u)=>g.move({from:u.slice(0,2),to:u.slice(2,4),promotion:u[4]});
 const norm=s=>s.replace(/[+#x=]/g,'').replace(/0/g,'O');
 const today=()=>{const t=new Date();return t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0')};
