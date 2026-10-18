@@ -6,6 +6,19 @@ Versions use the pattern MAJOR.MINOR.PATCH.
 - MINOR goes up when a new feature is added
 - PATCH goes up for small fixes
 
+## [0.6.0] - 2026-10-18
+Based on the index.html uploaded as index_1.html (PWA tags, service worker, board that never shrinks, Delete all sessions).
+### Added
+- Home: a 10-puzzle option next to 25, 50, 75, 100
+- Report button (flag) next to the Errors switch: quick reasons plus an optional message; it sends the puzzle id, theme, rating, position, stored solution, typed line and app version to a Google Sheet (spam guard: shared key, hidden field, limits per device and in total, text cleaning). Reports wait on the device if it is offline. Needs FEEDBACK_URL (see feedback-apps-script.gs)
+- Review: a small x on the puzzle screen removes that puzzle from Review
+### Changed
+- Errors (renamed from Show errors): with it on, a move turns red as soon as you press Space if it is illegal or not in the stored solution. A different checkmate on the last move is not red. Moves after a wrong one are dimmed
+- Keyboard: castling keys removed (castle by moving the king two squares: Kg1, Kc1, Kg8, Kc8; the box shows O-O or O-O-O); x + # = made smaller; the Space key is wide; the keyboard has 4 rows
+- Answer box: at least 2 full lines, up to 4
+### Fixed
+- The setup move could be applied to the wrong puzzle if you tapped Next within half a second
+
 ## [0.5.1] - 2026-10-16
 ### Changed
 - RhosGFX pieces are now plain white and black. The original set is cream and orange, so the app recolors it when it is built (CC0 allows changes)

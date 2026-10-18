@@ -36,12 +36,12 @@ h3{margin:10px 4px 2px;font-size:14px;color:var(--mu);font-weight:600}
 .rk,.fl{position:absolute;font-size:10px;font-weight:700;line-height:1}.rk{left:3px;top:2px}.fl{right:3px;bottom:2px}.l .rk,.l .fl{color:#555}.d .rk,.d .fl{color:#e6e6e6}
 .info #tn{width:24px;height:24px;padding:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border:2px solid #8a8a8a}.turn.w{background:#fff;color:#000}.turn.b{background:#000;color:#fff}.info{gap:6px;white-space:nowrap}.info span{padding:2px 8px}.info .sl{border:0;padding:0;font-size:13px}.sw{width:36px;height:20px;border-radius:10px;padding:0;position:relative;flex:none;background:var(--bd)}.sw i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--mu);transition:left .15s}.sw.on{background:var(--tx)}.sw.on i{left:18px;background:var(--on)}.hq{width:22px!important;height:22px!important;font-size:13px;padding:0}
 .ver{text-align:center;color:var(--mu);font-size:12px;padding-bottom:6px}
-#box{min-height:48px;max-height:72px;overflow:auto;padding:8px 10px;border:1px solid var(--tx);border-radius:12px;line-height:22px;position:relative;padding-right:84px}
+#box{min-height:62px;max-height:100px;overflow:auto;padding:8px 10px;border:1px solid var(--tx);border-radius:12px;line-height:22px;position:relative;padding-right:84px}
 #box .bad{background:var(--red);color:#fff;border-radius:4px;padding:0 3px}#box .dim{opacity:.55}
 #box i{display:inline-block;width:2px;height:18px;background:var(--tx);vertical-align:middle;animation:b 1s steps(2) infinite}@keyframes b{50%{opacity:0}}
 #er{position:absolute;right:6px;top:6px;display:flex;gap:4px}#er button{width:34px;height:32px;padding:0}
 #kb{display:flex;flex-direction:column;gap:5px}.row{display:flex;gap:5px}.row button{flex:1;height:40px;padding:0;color:var(--kt);background:var(--kb)}
-.row .w2{flex:2}.row .w3{flex:3}.row .pc{font-size:22px}
+.row .w2{flex:2}.row .w3{flex:3}.row .sm{flex:.55}.row .pc{font-size:22px}
 #msg{height:20px;text-align:center;font-weight:600}#act{display:flex;visibility:visible!important;gap:8px}#act button{flex:1;height:42px}
 #chk{height:46px;background:var(--tx);color:var(--on);font-weight:700}
 #cs{position:fixed;inset:0;background:#000c;display:none;align-items:center;justify-content:center}#cs div{background:var(--sf);border:1px solid var(--bd);border-radius:16px;padding:24px;text-align:center}
@@ -62,6 +62,11 @@ body.pz #nav{display:none}
 .adr{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;background:var(--sf);border:1px solid var(--bd);border-radius:12px;margin-bottom:8px}.adr b{display:block}.adr code{display:block;font-size:12px;word-break:break-all;color:var(--mu)}.adr button{padding:8px 12px;flex:none}
 .cr{background:var(--sf);border:1px solid var(--bd);border-radius:12px;padding:10px 14px;margin-bottom:8px;font-size:14px}.cr b{display:block}.cr span{color:var(--mu)}
 .rw{display:flex;gap:6px;align-items:stretch;margin-bottom:8px}.dx{width:36px;flex:none;padding:0;font-size:14px;color:var(--mu)}.dx:active{color:var(--red)}.delall{margin-top:12px;padding:12px;color:var(--red);width:100%}
+.rmb{display:none;width:32px;height:32px;padding:0;color:var(--mu);margin-left:4px;flex:none}
+.rp svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.rp{display:flex;align-items:center;justify-content:center;padding:0;flex:none}
+#rpt{position:fixed;inset:0;background:#000c;display:none;align-items:center;justify-content:center;padding:16px;z-index:5}#rpt .bx{background:var(--sf);border:1px solid var(--bd);border-radius:16px;padding:16px;width:100%;max-width:420px}
+#rpt textarea{width:100%;height:90px;margin:8px 0;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:8px;font:inherit;resize:none}
+#rpt .rs{display:flex;flex-direction:column;gap:6px;margin-top:8px}#rpt .rs button{padding:10px;text-align:left}#rpt .ra{display:flex;gap:8px}#rpt .ra button{flex:1;padding:10px}.hp{position:absolute;left:-9999px;opacity:0}
 </style></head><body>
 <div id="home" class="scr nv on">
  <div class="hd"><svg width="44" height="44" viewBox="0 0 64 64"><rect x="3" y="3" width="58" height="58" rx="16" fill="#e8e8e8"/><g transform="translate(9.6 8.2) scale(.7)" fill="#0a0a0a"><path d="M30 9h4v5h5v4h-5v5h-4v-5h-5v-4h5z"/><path d="M32 25c-9 0-15 6-15 12 0 4 3 6 5 7l-2 8h24l-2-8c2-1 5-3 5-7 0-6-6-12-15-12z"/><rect x="16" y="54" width="32" height="5" rx="2.5"/></g></svg>
@@ -70,7 +75,7 @@ body.pz #nav{display:none}
  <h3>Puzzles</h3><div class="chips" id="cn"></div>
  <h3>Rating</h3><div class="chips" id="rt"></div>
  <h3>What to train?</h3><div class="grid3" id="th"></div>
- <div class="ver">v0.5.1</div>
+ <div class="ver">v0.6.0</div>
 </div>
 <div id="train" class="scr nv"><h3>Training</h3><div id="tl"></div></div>
 <div id="stats" class="scr nv"><h3>Stats</h3><div id="ss"></div>
@@ -80,8 +85,8 @@ body.pz #nav{display:none}
 <div id="info" class="scr nv doc"><button class="bkb" data-go="home">&larr;</button>
  <h1 style="margin:6px 4px 0">KeyChess</h1><p style="color:var(--mu);margin:0 4px 14px">Think Type Take</p>
  <p>A chess puzzle trainer made to improve your focus. You don't drag pieces: you look at the position, think, and type the whole line, your moves and the opponent's replies. To type it, you have to calculate it first.</p>
- <h4>How it works</h4><ol><li>Choose the number of puzzles, the rating and the theme. The session starts at once.</li><li>The app plays the first move. The chip at the top shows how many moves to type.</li><li>Type with the on-screen keys or your keyboard. Space enters a move. Press Check.</li><li>Missed puzzles go to Review. Replay a session in Training to add cycles. Stats shows your progress.</li></ol>
- <p><b>Show errors:</b> the switch above the board. On, illegal and wrong moves turn red. Off, nothing turns red, which is harder.</p>
+ <h4>How it works</h4><ol><li>Choose the number of puzzles, the rating and the theme. The session starts at once.</li><li>The app plays the first move. The chip at the top shows how many moves to type.</li><li>Type with the on-screen keys or your keyboard. Space enters a move. To castle, move the king two squares (Kg1 or Kc1). Press Check.</li><li>Missed puzzles go to Review. Replay a session in Training to add cycles. Stats shows your progress.</li></ol>
+ <p><b>Errors:</b> the switch above the board. On, a move turns red as soon as you press Space if it is illegal or not in the solution. Off, nothing turns red, which is harder. The flag sends us a report about the puzzle.</p>
  <p>No account, no ads. Your progress stays on your device.</p>
  <h4>Credits</h4>
  <div class="cr"><b>Puzzles</b><span>Lichess open puzzle database (CC0). Not affiliated with Lichess.</span></div>
@@ -89,7 +94,7 @@ body.pz #nav{display:none}
  <div class="cr"><b>Pieces</b><span>Chessnut by Alexis Luengas (Apache 2.0). RhosGFX (CC0).</span></div>
  <div class="cr"><b>Code</b><span>Written with Claude, an AI assistant by Anthropic.</span></div>
  <div class="cr"><b>Created by Carlos Nada</b><span><a href="mailto:keychessapp@gmail.com" style="color:inherit">keychessapp@gmail.com</a></span></div>
- <p style="color:var(--mu);font-size:12px;text-align:center">v0.5.1</p></div>
+ <p style="color:var(--mu);font-size:12px;text-align:center">v0.6.0</p></div>
 <div id="price" class="scr nv doc"><button class="bkb" data-go="home">&larr;</button>
  <div class="big">$0</div><p class="c"><b>KeyChess is free. No ads, no subscription, no catch.</b></p>
  <img class="ph" src="img/friends.webp" alt="" onerror="this.style.display='none'">
@@ -100,8 +105,8 @@ body.pz #nav{display:none}
  <h4>Ways to give</h4><div class="adr"><div><b>ETH</b><code>0x7E13Ad02C87Df1BA8881E8e1a418AdB56e13e604</code></div><button data-copy="0x7E13Ad02C87Df1BA8881E8e1a418AdB56e13e604">Copy</button></div><div class="adr"><div><b>USDT (ETH)</b><code>0xc80bd98e5b32d5833146242fc479eabe465c0fc5</code></div><button data-copy="0xc80bd98e5b32d5833146242fc479eabe465c0fc5">Copy</button></div><div class="adr"><div><b>BTC</b><code>137aBSiYk9jGnYdtZqM58cMMeBKN7ky9tT</code></div><button data-copy="137aBSiYk9jGnYdtZqM58cMMeBKN7ky9tT">Copy</button></div>
  <p style="color:var(--mu);font-size:13px">Gifts are voluntary and unlock nothing. Crypto payments can't be reversed, so check the network before you send.</p></div>
 <div id="puz" class="scr">
- <div class="top"><button id="bk">←</button><b id="tt"></b><span id="sc"></span></div>
- <div class="info"><span id="tn" class="turn"></span><span id="mv"></span><span id="rg"></span><button id="sw" class="sw" role="switch" aria-checked="true" aria-label="Show errors"><i></i></button><span class="sl">Show errors</span><button id="hq" class="ci hq">?</button></div>
+ <div class="top"><button id="bk">←</button><b id="tt"></b><span id="sc"></span><button id="rm" class="rmb" aria-label="Remove from Review">&times;</button></div>
+ <div class="info"><span id="tn" class="turn"></span><span id="mv"></span><span id="rg"></span><button id="sw" class="sw" role="switch" aria-checked="true" aria-label="Errors"><i></i></button><span class="sl">Errors</span><button id="hq" class="ci hq">?</button><button id="rp" class="ci hq rp" aria-label="Report this puzzle"><svg viewBox="0 0 24 24"><path d="M5 21V4M5 4h12l-2.5 4L17 12H5"/></svg></button></div>
  <div id="board"></div>
  <div id="box"><span id="tx"></span><div id="er"><button id="un">↶</button><button id="cl">✕</button></div></div>
  <div id="kb"></div>
@@ -109,6 +114,7 @@ body.pz #nav{display:none}
  <button id="chk">Check</button>
 </div>
 <nav id="nav"><button data-go="home"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10h-6v-6H9v6H3z"/></svg></button><button data-go="train"><svg viewBox="0 0 24 24"><path d="M6 7v10M3 9v6M18 7v10M21 9v6M6 12h12"/></svg></button><button data-go="stats"><svg viewBox="0 0 24 24"><path d="M5 21V10M12 21V4M19 21v-7"/></svg></button><button data-go="sett"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg></button></nav>
+<div id="rpt"><div class="bx"><b>Report this puzzle</b><div class="rs" id="rr"></div><textarea id="rm2" maxlength="400" placeholder="Tell us more (optional)"></textarea><input class="hp" id="hp" tabindex="-1" autocomplete="off"><div id="rmsg" style="min-height:18px;color:var(--mu);font-size:13px"></div><div class="ra"><button id="rc">Cancel</button><button id="rsd">Send</button></div></div></div>
 <div id="cs"><div><p id="cst"></p><button id="ok" style="padding:8px 20px">OK</button></div></div>
 <script>(function(){var exports={},module={exports:exports};'use strict';
 
@@ -3516,7 +3522,7 @@ $('#ok').onclick=()=>{const f=$('#cs').fn;$('#cs').fn=null;$('#cs').style.displa
 document.querySelectorAll('[data-soon]').forEach(b=>b.onclick=()=>modal(b.dataset.soon+' page: coming soon'));
 function go(id){document.querySelectorAll('.scr').forEach(s=>s.classList.toggle('on',s.id==id));document.body.classList.toggle('pz',id=='puz');function swUI(){$('#sw').classList.toggle('on',pref.h);$('#sw').setAttribute('aria-checked',pref.h)}swUI();
 $('#sw').onclick=e=>{pref.h=!pref.h;sv('kc_pref',pref);swUI();e.currentTarget.blur();if(after)render(state=='wrong')};
-$('#hq').onclick=e=>{e.currentTarget.blur();modal('Show errors ON: illegal moves turn red while you type, and after Check the wrong moves turn red too. OFF: nothing turns red, you only learn whether the whole line is right or wrong (harder).')};
+$('#hq').onclick=e=>{e.currentTarget.blur();modal('Errors ON: when you press Space, a move turns red if it is illegal or not in the solution (a different checkmate on the last move is fine). OFF: nothing turns red, you only learn after Check whether the line is right or wrong (harder).')};
 document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.go==id));if(id=='train')rTrain();if(id=='stats')rStats();if(id=='sett')rSet()}
 document.querySelectorAll('#nav button,.ci[data-go],.bkb').forEach(b=>b.onclick=()=>go(b.dataset.go));
 const PSN=[['chessnut','Chessnut'],['rhosgfx','RhosGFX']],TMN=[['black','Black','#0a0a0a'],['sepia','Sepia','#f1e6cf'],['blue','Blue night','#0b1220']];
@@ -3525,7 +3531,7 @@ function rSet(){const p=$('#ps'),t=$('#tm');p.innerHTML=t.innerHTML='';
  TMN.forEach(([k,n,c])=>{const b=document.createElement('button');b.className='chip opt'+(pref.th==k?' sel':'');b.innerHTML='<i style="background:'+c+'"></i><span>'+n+'</span>';b.onclick=()=>{pref.th=k;sv('kc_pref',pref);document.documentElement.dataset.th=k;rSet()};t.append(b)})}
 document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=async()=>{const v=b.dataset.copy;try{await navigator.clipboard.writeText(v)}catch(e){const x=document.createElement('textarea');x.value=v;document.body.append(x);x.select();try{document.execCommand('copy')}catch(_){}x.remove()}const o=b.textContent;b.textContent='Copied';setTimeout(()=>b.textContent=o,1200)});
 function chips(box,items,cur,cls,cb){box.innerHTML='';items.forEach((t,i)=>{const c=document.createElement('button');c.className=cls+(i==cur?' sel':'');c.textContent=t;c.onclick=()=>{[...box.children].forEach((x,j)=>x.classList.toggle('sel',i==j));cb(i)};box.append(c)})}
-chips($('#cn'),[25,50,75,100],[25,50,75,100].indexOf(pref.n),'chip cn',i=>{pref.n=[25,50,75,100][i];sv('kc_pref',pref)});
+chips($('#cn'),[10,25,50,75,100],[10,25,50,75,100].indexOf(pref.n),'chip cn',i=>{pref.n=[10,25,50,75,100][i];sv('kc_pref',pref)});
 chips($('#rt'),BANDS.map(b=>b[0]),pref.b,'chip',i=>{pref.b=i;sv('kc_pref',pref)});
 THEMES.forEach(t=>{const c=document.createElement('button');c.className='tile';c.textContent=t[1];c.onclick=()=>startTheme(t[0]);$('#th').append(c)});
 const shuf=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
@@ -3556,15 +3562,15 @@ function rStats(){const y=mo.getFullYear(),m=mo.getMonth(),dn=new Date(y,m+1,0).
 $('#pm').onclick=()=>{mo=new Date(mo.getFullYear(),mo.getMonth()-1,1);rStats()};$('#nm').onclick=()=>{mo=new Date(mo.getFullYear(),mo.getMonth()+1,1);rStats()};
 function draw(g,hl){const b=g.board(),el=$('#board');el.innerHTML='';const R=side=='w'?[0,1,2,3,4,5,6,7]:[7,6,5,4,3,2,1,0],C=side=='w'?[0,1,2,3,4,5,6,7]:[7,6,5,4,3,2,1,0];
  R.forEach(r=>C.forEach(c=>{const q=FILES[c]+(8-r),p=b[r][c],d=document.createElement('div');d.className='sq '+((r+c)%2?'d':'l')+(hl.includes(q)?' h':'');if(c==C[0])d.insertAdjacentHTML('beforeend','<b class="rk">'+(8-r)+'</b>');if(r==R[7])d.insertAdjacentHTML('beforeend','<b class="fl">'+FILES[c]+'</b>');if(p)d.style.backgroundImage='url('+(SETS[pref.ps]||SETS.chessnut)[p.color+p.type.toUpperCase()]+')';el.append(d)}))}
-function next(){if(MODE=='session'&&idx>=L.length)return finish();if(MODE=='review'&&idx>=L.length)return modal('Review round done. '+rev.length+' left.',()=>go('train'));pz=L[idx++%L.length];resolved=false;wrongSeen=false;if(MODE=='review')$('#tt').textContent='Review \u00B7 '+(TL[pz[4]]||'');const m=pz[2].split(' ');G=new Chess(pz[1]);side=G.turn()=='w'?'b':'w';sol=m.slice(1);$('#tn').className='turn '+side;$('#tn').textContent=side=='w'?'W':'B';ent=[];cur='';state='play';
- draw(G,[]);setTimeout(()=>{mv(G,m[0]);wood();after=G.fen();draw(G,[m[0].slice(0,2),m[0].slice(2,4)]);render()},450);
+function next(){if(MODE=='session'&&idx>=L.length)return finish();if(MODE=='review'&&idx>=L.length)return modal('Review round done. '+rev.length+' left.',()=>go('train'));pz=L[idx++%L.length];resolved=false;wrongSeen=false;$('#rm').style.display=MODE=='review'?'block':'none';if(MODE=='review')$('#tt').textContent='Review \u00B7 '+(TL[pz[4]]||'');const m=pz[2].split(' ');G=new Chess(pz[1]);side=G.turn()=='w'?'b':'w';sol=m.slice(1);$('#tn').className='turn '+side;$('#tn').textContent=side=='w'?'W':'B';ent=[];cur='';state='play';
+ const g0=G,mine=pz;draw(g0,[]);setTimeout(()=>{if(pz!==mine||state=='done')return;mv(g0,m[0]);wood();draw(g0,[m[0].slice(0,2),m[0].slice(2,4)]);render()},450);
  after=null;$('#mv').textContent='Moves: '+sol.length;$('#rg').textContent='★ '+pz[3];$('#msg').textContent='';$('#act').style.visibility='hidden';$('#sc').textContent=cnt();
  // compute "after" now so typing never waits
  const t=new Chess(pz[1]);mv(t,m[0]);after=t.fen();render()}
-function evalLine(){const g=new Chess(after),o=[];let good=true;for(const t of ent){if(!good){o.push({t,bad:1,dim:1});continue}const m=g.moves({verbose:true}).find(x=>norm(x.san)==norm(t));if(!m){o.push({t,bad:1});good=false;continue}g.move(m.san);o.push({t:m.san,u:m.from+m.to+(m.promotion||''),mate:g.isCheckmate()})}return o}
-function render(wrong){if(!after)return;const ev=evalLine(),f=after.split(' ');let n=+f[5],col=f[1],h='';
- ev.forEach((e,i)=>{const bad=pref.h&&(e.bad||(wrong&&e.u!=sol[i]&&!(i==sol.length-1&&e.mate&&e.u!=undefined&&ev.slice(0,i).every((x,k)=>x.u==sol[k]))));
-  const pre=col=='w'?n+'. ':(i==0?n+'... ':'');h+=(pre?pre:'')+'<span class="'+(bad?'bad ':'')+(pref.h&&e.dim?'dim':'')+'">'+e.t+'</span> ';if(col=='b')n++;col=col=='w'?'b':'w'});
+function evalLine(){const g=new Chess(after),o=[];let good=true;for(const t of ent){if(!good){o.push({t,bad:1,dim:1});continue}const m=g.moves({verbose:true}).find(x=>norm(x.san)==norm(t)||(/[kq]/.test(x.flags)&&norm(t)=='K'+x.to));if(!m){o.push({t,bad:1});good=false;continue}g.move(m.san);o.push({t:m.san,u:m.from+m.to+(m.promotion||''),mate:g.isCheckmate()})}return o}
+function render(wrong){if(!after)return;const ev=evalLine(),f=after.split(' ');let n=+f[5],col=f[1],h='',broke=false;
+ ev.forEach((e,i)=>{const okMv=!e.bad&&(e.u===sol[i]||(i===sol.length-1&&e.mate)),bad=pref.h&&(broke||!okMv),dm=pref.h&&(broke||e.dim);if(!okMv)broke=true;
+  const pre=col=='w'?n+'. ':(i==0?n+'... ':'');h+=(pre?pre:'')+'<span class="'+(bad?'bad ':'')+(dm?'dim':'')+'">'+e.t+'</span> ';if(col=='b')n++;col=col=='w'?'b':'w'});
  if(cur){const pre=col=='w'?n+'. ':(ent.length==0?n+'... ':'');h+=pre+cur}
  $('#tx').innerHTML=h+'<i></i>';$('#box').scrollTop=1e5;return ev}
 function check(){if(state!='play'&&state!='wrong'||!after)return;if(cur){ent.push(cur);cur=''}const ev=evalLine();
@@ -3574,10 +3580,25 @@ function ending(win){state='done';const g=new Chess(after);let i=0;$('#msg').sty
  const step=()=>{if(i>=sol.length){if(win)chime();$('#act').style.visibility='visible';$('#sh').style.display='none';return}mv(g,sol[i]);wood();draw(g,[sol[i].slice(0,2),sol[i].slice(2,4)]);i++;setTimeout(step,650)};
  draw(G=new Chess(after),[]);$('#act').style.visibility='hidden';setTimeout(step,300)}
 $('#chk').onclick=check;$('#sh').onclick=()=>{if(state!='done'){if(!resolved){resolved=true;resolve(false,false)}ending(false)}};$('#nx').onclick=()=>{if(!resolved){resolved=true;resolve(false,false)}$('#sh').style.display='';next()};
-const KEYS=[['♚\uFE0E:K','♛\uFE0E:Q','♜\uFE0E:R','♝\uFE0E:B','♞\uFE0E:N'],[...'abcdefgh'],[...'12345678'],['x','+','#','=','⌫:BS'],['O-O','Space:SP','O-O-O']];
-KEYS.forEach((r,ri)=>{const d=document.createElement('div');d.className='row';r.forEach(k=>{const[l,v]=k.includes(':')&&k.length>1?k.split(':'):[k,k],b=document.createElement('button');b.textContent=l;b.dataset.k=v;if(ri==0)b.classList.add('pc');if(v=='SP')b.className='w2';b.onclick=()=>key(v);d.append(b)});$('#kb').append(d)});
+const KEYS=[['♚\uFE0E:K','♛\uFE0E:Q','♜\uFE0E:R','♝\uFE0E:B','♞\uFE0E:N'],[...'abcdefgh'],[...'12345678'],['x','+','#','=','Space:SP','⌫:BS']];
+KEYS.forEach((r,ri)=>{const d=document.createElement('div');d.className='row';r.forEach(k=>{const[l,v]=k.includes(':')&&k.length>1?k.split(':'):[k,k],b=document.createElement('button');b.textContent=l;b.dataset.k=v;if(ri==0)b.classList.add('pc');if(v=='SP')b.className='w3';if(ri==3&&'x+#='.includes(v))b.classList.add('sm');b.onclick=()=>key(v);d.append(b)});$('#kb').append(d)});
 function key(v){if(state=='done'||!after)return;if(v=='SP'){if(cur){ent.push(cur);cur=''}}else if(v=='BS'){if(!cur&&ent.length)cur=ent.pop();cur=cur.slice(0,-1)}else cur+=v;if(state=='wrong')state='play',$('#msg').textContent='';render()}
-document.addEventListener('keydown',e=>{if(!$('#puz').classList.contains('on')||e.ctrlKey||e.metaKey||e.altKey)return;const k=e.key;let v=null;
+// ---- remove a puzzle from Review
+$('#rm').onclick=()=>{if(!confirm('Remove this puzzle from Review?'))return;rev=rev.filter(x=>x[0]!=pz[0]);sv('kc_r',rev);L=L.filter(x=>x[0]!=pz[0]);idx=Math.max(0,idx-1);resolved=true;next()};
+// ---- report a puzzle (sent to a Google Sheet through an Apps Script web app)
+const FEEDBACK_URL='',FB_KEY='kc-2026',RS=['Too easy','The solution looks wrong','Something else'];let rsn=0;
+const cid=(()=>{let c=ld('kc_cid',null);if(!c){c=Math.random().toString(36).slice(2,10);sv('kc_cid',c)}return c})();
+$('#rp').onclick=e=>{e.currentTarget.blur();if(!pz)return;rsn=0;$('#rr').innerHTML='';RS.forEach((t,i)=>{const b=document.createElement('button');b.textContent=t;b.className=i==0?'sel':'';b.onclick=()=>{rsn=i;[...$('#rr').children].forEach((x,j)=>x.classList.toggle('sel',i==j))};$('#rr').append(b)});$('#rm2').value='';$('#rmsg').textContent='';$('#rpt').style.display='flex'};
+$('#rc').onclick=()=>{$('#rpt').style.display='none'};
+async function fbFlush(){const q=ld('kc_fb',[]);if(!q.length||!FEEDBACK_URL||!navigator.onLine)return;const keep=[];for(const r of q){try{await fetch(FEEDBACK_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(r)})}catch(e){keep.push(r)}}sv('kc_fb',keep)}
+$('#rsd').onclick=()=>{if($('#hp').value){$('#rpt').style.display='none';return}const now=Date.now(),log=ld('kc_fl',[]).filter(t=>now-t<36e5);
+ if(log.length>=5||(log.length&&now-log[log.length-1]<15e3)){$('#rmsg').textContent='Please wait a moment before sending another report.';return}
+ const msg=$('#rm2').value.trim().slice(0,400);if(rsn==2&&!msg){$('#rmsg').textContent='Please write a short message.';return}
+ const r={key:FB_KEY,cid,ts:new Date().toISOString(),id:pz[0],theme:(MODE=='review'?pz[4]:TH)||'',rating:pz[3],reason:RS[rsn],msg,fen:pz[1],moves:pz[2],typed:$('#tx').textContent.trim(),ver:'0.6.0'};
+ log.push(now);sv('kc_fl',log);const q=ld('kc_fb',[]);q.push(r);sv('kc_fb',q);$('#rpt').style.display='none';
+ modal(FEEDBACK_URL?'Thank you! Your report was sent.':'Thank you! Reports are not connected yet, so it is saved on this device.');fbFlush()};
+window.addEventListener('online',fbFlush);fbFlush();
+document.addEventListener('keydown',e=>{if(!$('#puz').classList.contains('on')||e.ctrlKey||e.metaKey||e.altKey||$('#rpt').style.display=='flex'||(e.target&&e.target.closest&&e.target.closest('textarea,input')))return;const k=e.key;let v=null;
  if(k==' ')v='SP';else if(k=='Backspace')v='BS';else if(k=='Escape'){$('#cl').click();return}
  else if(k=='Enter'){e.preventDefault();if(state=='done')$('#nx').click();else check();return}
  else if('KQRBN'.includes(k)&&k.length==1)v=k;else if(/^[a-h1-8]$/.test(k))v=k;else if(k=='x'||k=='X')v='x';else if('+#=-'.includes(k)&&k.length==1)v=k;else if(k=='o'||k=='O'||k=='0')v='O';
