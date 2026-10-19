@@ -75,7 +75,7 @@ body.pz #nav{display:none}
  <h3>Puzzles</h3><div class="chips" id="cn"></div>
  <h3>Rating</h3><div class="chips" id="rt"></div>
  <h3>What to train?</h3><div class="grid3" id="th"></div>
- <div class="ver">v0.6.0</div>
+ <div class="ver">v0.6.1</div>
 </div>
 <div id="train" class="scr nv"><h3>Training</h3><div id="tl"></div></div>
 <div id="stats" class="scr nv"><h3>Stats</h3><div id="ss"></div>
@@ -94,7 +94,7 @@ body.pz #nav{display:none}
  <div class="cr"><b>Pieces</b><span>Chessnut by Alexis Luengas (Apache 2.0). RhosGFX (CC0).</span></div>
  <div class="cr"><b>Code</b><span>Written with Claude, an AI assistant by Anthropic.</span></div>
  <div class="cr"><b>Created by Carlos Nada</b><span><a href="mailto:keychessapp@gmail.com" style="color:inherit">keychessapp@gmail.com</a></span></div>
- <p style="color:var(--mu);font-size:12px;text-align:center">v0.6.0</p></div>
+ <p style="color:var(--mu);font-size:12px;text-align:center">v0.6.1</p></div>
 <div id="price" class="scr nv doc"><button class="bkb" data-go="home">&larr;</button>
  <div class="big">$0</div><p class="c"><b>KeyChess is free. No ads, no subscription, no catch.</b></p>
  <img class="ph" src="img/friends.webp" alt="" onerror="this.style.display='none'">
@@ -3586,7 +3586,7 @@ function key(v){if(state=='done'||!after)return;if(v=='SP'){if(cur){ent.push(cur
 // ---- remove a puzzle from Review
 $('#rm').onclick=()=>{if(!confirm('Remove this puzzle from Review?'))return;rev=rev.filter(x=>x[0]!=pz[0]);sv('kc_r',rev);L=L.filter(x=>x[0]!=pz[0]);idx=Math.max(0,idx-1);resolved=true;next()};
 // ---- report a puzzle (sent to a Google Sheet through an Apps Script web app)
-const FEEDBACK_URL='',FB_KEY='kc-2026',RS=['Too easy','The solution looks wrong','Something else'];let rsn=0;
+const FEEDBACK_URL='https://script.google.com/macros/s/AKfycbz1siB2zIdRWsxSCWOVb1KNizs_Vp7lpk0CA4-_3h2hAJRajzEh_441YFpv-I57TqXI/exec',FB_KEY='kc-2026',RS=['Another move also works','The solution looks wrong','Something else'];let rsn=0;
 const cid=(()=>{let c=ld('kc_cid',null);if(!c){c=Math.random().toString(36).slice(2,10);sv('kc_cid',c)}return c})();
 $('#rp').onclick=e=>{e.currentTarget.blur();if(!pz)return;rsn=0;$('#rr').innerHTML='';RS.forEach((t,i)=>{const b=document.createElement('button');b.textContent=t;b.className=i==0?'sel':'';b.onclick=()=>{rsn=i;[...$('#rr').children].forEach((x,j)=>x.classList.toggle('sel',i==j))};$('#rr').append(b)});$('#rm2').value='';$('#rmsg').textContent='';$('#rpt').style.display='flex'};
 $('#rc').onclick=()=>{$('#rpt').style.display='none'};
@@ -3594,7 +3594,7 @@ async function fbFlush(){const q=ld('kc_fb',[]);if(!q.length||!FEEDBACK_URL||!na
 $('#rsd').onclick=()=>{if($('#hp').value){$('#rpt').style.display='none';return}const now=Date.now(),log=ld('kc_fl',[]).filter(t=>now-t<36e5);
  if(log.length>=5||(log.length&&now-log[log.length-1]<15e3)){$('#rmsg').textContent='Please wait a moment before sending another report.';return}
  const msg=$('#rm2').value.trim().slice(0,400);if(rsn==2&&!msg){$('#rmsg').textContent='Please write a short message.';return}
- const r={key:FB_KEY,cid,ts:new Date().toISOString(),id:pz[0],theme:(MODE=='review'?pz[4]:TH)||'',rating:pz[3],reason:RS[rsn],msg,fen:pz[1],moves:pz[2],typed:$('#tx').textContent.trim(),ver:'0.6.0'};
+ const r={key:FB_KEY,cid,ts:new Date().toISOString(),id:pz[0],theme:(MODE=='review'?pz[4]:TH)||'',rating:pz[3],reason:RS[rsn],msg,fen:pz[1],moves:pz[2],typed:$('#tx').textContent.trim(),ver:'0.6.1'};
  log.push(now);sv('kc_fl',log);const q=ld('kc_fb',[]);q.push(r);sv('kc_fb',q);$('#rpt').style.display='none';
  modal(FEEDBACK_URL?'Thank you! Your report was sent.':'Thank you! Reports are not connected yet, so it is saved on this device.');fbFlush()};
 window.addEventListener('online',fbFlush);fbFlush();

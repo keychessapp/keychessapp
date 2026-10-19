@@ -6,6 +6,15 @@ Versions use the pattern MAJOR.MINOR.PATCH.
 - MINOR goes up when a new feature is added
 - PATCH goes up for small fixes
 
+## [sw.js v2] - 2026-10-19
+- Service worker (reviewed from the uploaded sw.js): downloads every puzzle file once in the background, so all themes work offline after the first visit; puzzle files live in their own cache (keychess-data-v1) and app files in keychess-code-v2
+- One missing file (for example an icon) no longer stops the install
+- Network first now gives up after 4 seconds and uses the saved copy; error pages (404) are no longer saved
+
+## [0.6.1] - 2026-10-19
+### Changed
+- Reports are now connected: FEEDBACK_URL points to the Google Apps Script web app
+
 ## [0.6.0] - 2026-10-18
 Based on the index.html uploaded as index_1.html (PWA tags, service worker, board that never shrinks, Delete all sessions).
 ### Added
