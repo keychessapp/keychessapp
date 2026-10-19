@@ -3586,7 +3586,7 @@ function key(v){if(state=='done'||!after)return;if(v=='SP'){if(cur){ent.push(cur
 // ---- remove a puzzle from Review
 $('#rm').onclick=()=>{if(!confirm('Remove this puzzle from Review?'))return;rev=rev.filter(x=>x[0]!=pz[0]);sv('kc_r',rev);L=L.filter(x=>x[0]!=pz[0]);idx=Math.max(0,idx-1);resolved=true;next()};
 // ---- report a puzzle (sent to a Google Sheet through an Apps Script web app)
-const FEEDBACK_URL='https://script.google.com/macros/s/AKfycbz1siB2zIdRWsxSCWOVb1KNizs_Vp7lpk0CA4-_3h2hAJRajzEh_441YFpv-I57TqXI/exec',FB_KEY='kc-2026',RS=['Another move also works','The solution looks wrong','Something else'];let rsn=0;
+const FEEDBACK_URL='https://script.google.com/macros/s/AKfycbz1siB2zIdRWsxSCWOVb1KNizs_Vp7lpk0CA4-_3h2hAJRajzEh_441YFpv-I57TqXI/exec',FB_KEY='kc-2026',RS=['Too many moves to type','The solution looks wrong','Something else'];let rsn=0;
 const cid=(()=>{let c=ld('kc_cid',null);if(!c){c=Math.random().toString(36).slice(2,10);sv('kc_cid',c)}return c})();
 $('#rp').onclick=e=>{e.currentTarget.blur();if(!pz)return;rsn=0;$('#rr').innerHTML='';RS.forEach((t,i)=>{const b=document.createElement('button');b.textContent=t;b.className=i==0?'sel':'';b.onclick=()=>{rsn=i;[...$('#rr').children].forEach((x,j)=>x.classList.toggle('sel',i==j))};$('#rr').append(b)});$('#rm2').value='';$('#rmsg').textContent='';$('#rpt').style.display='flex'};
 $('#rc').onclick=()=>{$('#rpt').style.display='none'};
