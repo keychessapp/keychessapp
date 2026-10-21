@@ -6,6 +6,13 @@ Versions use the pattern MAJOR.MINOR.PATCH.
 - MINOR goes up when a new feature is added
 - PATCH goes up for small fixes
 
+## [0.6.2] - 2026-10-20
+### Added
+- Sessions remember where you stopped. Leave a session halfway and the Training card shows `▶ 12/25`; tap it and you continue at the next puzzle, in the same order, with your results so far
+- Leaving with a wrong Check made on the current puzzle counts that puzzle as missed (it goes to Review). Leaving before checking: that puzzle starts again from zero
+- A cycle is counted, and the accuracy updated, only when you finish it. The results from before you left are included
+- Sessions made before this version have no saved place and work as before
+
 ## [sw.js v2] - 2026-10-19
 - Service worker (reviewed from the uploaded sw.js): downloads every puzzle file once in the background, so all themes work offline after the first visit; puzzle files live in their own cache (keychess-data-v1) and app files in keychess-code-v2
 - One missing file (for example an icon) no longer stops the install

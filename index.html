@@ -75,7 +75,7 @@ body.pz #nav{display:none}
  <h3>Puzzles</h3><div class="chips" id="cn"></div>
  <h3>Rating</h3><div class="chips" id="rt"></div>
  <h3>What to train?</h3><div class="grid3" id="th"></div>
- <div class="ver">v0.6.1</div>
+ <div class="ver">v0.6.2</div>
 </div>
 <div id="train" class="scr nv"><h3>Training</h3><div id="tl"></div></div>
 <div id="stats" class="scr nv"><h3>Stats</h3><div id="ss"></div>
@@ -94,7 +94,7 @@ body.pz #nav{display:none}
  <div class="cr"><b>Pieces</b><span>Chessnut by Alexis Luengas (Apache 2.0). RhosGFX (CC0).</span></div>
  <div class="cr"><b>Code</b><span>Written with Claude, an AI assistant by Anthropic.</span></div>
  <div class="cr"><b>Created by Carlos Nada</b><span><a href="mailto:keychessapp@gmail.com" style="color:inherit">keychessapp@gmail.com</a></span></div>
- <p style="color:var(--mu);font-size:12px;text-align:center">v0.6.1</p></div>
+ <p style="color:var(--mu);font-size:12px;text-align:center">v0.6.2</p></div>
 <div id="price" class="scr nv doc"><button class="bkb" data-go="home">&larr;</button>
  <div class="big">$0</div><p class="c"><b>KeyChess is free. No ads, no subscription, no catch.</b></p>
  <img class="ph" src="img/friends.webp" alt="" onerror="this.style.display='none'">
@@ -3541,19 +3541,23 @@ function pickN(a,key,n){const u=used[key]||[],set=new Set(u),out=a.filter(p=>!se
  used[key]=[...u.filter(id=>!out.some(p=>p[0]==id)),...out.map(p=>p[0])];sv('kc_u',used);return out}
 async function startTheme(t){const{a,err}=await loadRecs(t),B=BANDS[pref.b],f=shuf(a.filter(p=>p[3]>=B[1]&&p[3]<B[2]));
  if(!f.length){modal(err?'Could not load keychess_puzzles/'+t+'.json ('+err+'). Showing 2 demo puzzles. Keep the keychess_puzzles folder next to index.html and open the app through a server (not by double-click).':'No puzzles for this rating in this theme. Showing 2 demo puzzles.');run(DEMO,'demo',null,t,'home');return}
- const list=pickN(f,t+':'+pref.b,pref.n),s={id:Date.now(),t,b:pref.b,n:list.length,ids:list.map(p=>p[0]),cy:0,cl:0,tot:0,last:Date.now()};sess.unshift(s);sv('kc_s',sess);run(list,'session',s,t,'home')}
-async function replay(id){const s=sess.find(x=>x.id==id),{a}=await loadRecs(s.t),m=new Map(a.map(p=>[p[0],p])),list=shuf(s.ids.map(i=>m.get(i)).filter(Boolean));if(!list.length)return modal('Puzzle file not found.');run(list,'session',s,s.t,'train')}
-function run(list,mode,s,t,from){L=list;idx=0;MODE=mode;S=s;TH=t;FROM=from;runClean=0;ok=ko=0;go('puz');$('#tt').textContent=mode=='review'?'Review':TL[t]+(s?' · '+BANDS[s.b][0]+' / '+s.n:'');next()}
-$('#bk').onclick=()=>go(FROM);
+ const list=pickN(f,t+':'+pref.b,pref.n),s={id:Date.now(),t,b:pref.b,n:list.length,ids:list.map(p=>p[0]),cy:0,cl:0,tot:0,last:Date.now(),run:{ids:list.map(p=>p[0]),idx:0,clean:0,ok:0,ko:0}};sess.unshift(s);sv('kc_s',sess);run(list,'session',s,t,'home')}
+async function replay(id){const s=sess.find(x=>x.id==id),{a}=await loadRecs(s.t),m=new Map(a.map(p=>[p[0],p]));let list,res=null;
+ if(s.run&&s.run.idx>0){list=[];let start=0;s.run.ids.forEach((i,k)=>{const p=m.get(i);if(p){if(k<s.run.idx)start++;list.push(p)}});res={idx:start,clean:s.run.clean,ok:s.run.ok,ko:s.run.ko}}
+ else{list=shuf(s.ids.map(i=>m.get(i)).filter(Boolean));s.run={ids:list.map(p=>p[0]),idx:0,clean:0,ok:0,ko:0};sv('kc_s',sess)}
+ if(!list.length)return modal('Puzzle file not found.');run(list,'session',s,s.t,'train',res)}
+function run(list,mode,s,t,from,res){L=list;idx=res?res.idx:0;MODE=mode;S=s;TH=t;FROM=from;runClean=res?res.clean:0;ok=res?res.ok:0;ko=res?res.ko:0;go('puz');$('#tt').textContent=mode=='review'?'Review':TL[t]+(s?' · '+BANDS[s.b][0]+' / '+s.n:'');next()}
+function leave(){if(MODE=='session'&&S&&!resolved&&wrongSeen&&$('#puz').classList.contains('on')){resolved=true;resolve(false,false)}}
+$('#bk').onclick=()=>{leave();go(FROM)};window.addEventListener('pagehide',leave);
 const cnt=()=>MODE=='review'?rev.length+' left':Math.min(idx,L.length)+'/'+L.length+' \u2713'+ok+' \u2717'+ko;
 function resolve(clean,solved){if(MODE=='demo')return;const d=today();
  if(MODE=='session'){st.days[d]=(st.days[d]||0)+1;st.played++;if(solved)st.solved++;if(clean){st.clean++;runClean++;ok++}else{ko++;if(!rev.some(x=>x[0]==pz[0]))rev.push([...pz.slice(0,4),TH])}}
  else if(MODE=='review'&&clean){st.days[d]=(st.days[d]||0)+1;rev=rev.filter(x=>x[0]!=pz[0])}
- sv('kc_st',st);sv('kc_r',rev);$('#sc').textContent=cnt()}
-function finish(){S.cy++;S.cl+=runClean;S.tot+=L.length;S.last=Date.now();sv('kc_s',sess);modal('Cycle '+S.cy+' done: '+runClean+'/'+L.length+' clean ('+Math.round(100*runClean/L.length)+'%)',()=>go('train'))}
+ sv('kc_st',st);sv('kc_r',rev);if(MODE=='session'&&S&&S.run){S.run.idx=idx;S.run.clean=runClean;S.run.ok=ok;S.run.ko=ko;sv('kc_s',sess)}$('#sc').textContent=cnt()}
+function finish(){S.cy++;S.cl+=runClean;S.tot+=L.length;S.last=Date.now();S.run=null;sv('kc_s',sess);modal('Cycle '+S.cy+' done: '+runClean+'/'+L.length+' clean ('+Math.round(100*runClean/L.length)+'%)',()=>go('train'))}
 function rTrain(){const el=$('#tl');el.innerHTML='';const r=document.createElement('button');r.className='card';r.innerHTML='<b>Review \u00B7 '+rev.length+'</b><span>\u203A</span>';r.onclick=()=>{if(!rev.length)return modal('Nothing to review yet.');run(shuf(rev),'review',null,null,'train')};el.append(r);
  if(!sess.length)el.insertAdjacentHTML('beforeend','<p class="mu">No sessions yet. Pick a theme on Home.</p>');
- [...sess].sort((a,b)=>b.last-a.last).forEach(s=>{const b=document.createElement('button');b.className='card';b.innerHTML='<b>'+TL[s.t]+' \u00B7 '+BANDS[s.b][0]+' / '+s.n+'</b><span>'+(s.tot?Math.round(100*s.cl/s.tot)+'%':'\u2013')+' \u00B7 \u00D7'+s.cy+'</span>';b.onclick=()=>replay(s.id);b.style.margin='0';b.style.flex='1';const w=document.createElement('div');w.className='rw';const x=document.createElement('button');x.className='dx';x.textContent='\u2715';x.setAttribute('aria-label','Delete session');x.onclick=()=>{if(confirm('Delete this session?')){sess=sess.filter(q=>q.id!=s.id);sv('kc_s',sess);rTrain()}};w.append(b,x);el.append(w)});
+ [...sess].sort((a,b)=>b.last-a.last).forEach(s=>{const b=document.createElement('button');b.className='card';b.innerHTML='<b>'+TL[s.t]+' \u00B7 '+BANDS[s.b][0]+' / '+s.n+'</b><span>'+(s.run&&s.run.idx>0?'\u25B6 '+s.run.idx+'/'+s.n:(s.tot?Math.round(100*s.cl/s.tot)+'%':'\u2013'))+' \u00B7 \u00D7'+s.cy+'</span>';b.onclick=()=>replay(s.id);b.style.margin='0';b.style.flex='1';const w=document.createElement('div');w.className='rw';const x=document.createElement('button');x.className='dx';x.textContent='\u2715';x.setAttribute('aria-label','Delete session');x.onclick=()=>{if(confirm('Delete this session?')){sess=sess.filter(q=>q.id!=s.id);sv('kc_s',sess);rTrain()}};w.append(b,x);el.append(w)});
  if(sess.length){const a=document.createElement('button');a.className='delall';a.textContent='Delete all sessions';a.onclick=()=>{if(confirm('Delete all '+sess.length+' sessions? Review list and stats are kept.')){sess=[];sv('kc_s',sess);rTrain()}};el.append(a)}}
 function rStats(){const y=mo.getFullYear(),m=mo.getMonth(),dn=new Date(y,m+1,0).getDate(),w0=(new Date(y,m,1).getDay()+6)%7;
  $('#ss').innerHTML='<div><b>'+st.solved+'</b><span>puzzles solved</span></div><div><b>'+(st.played?Math.round(100*st.clean/st.played)+'%':'\u2013')+'</b><span>accuracy</span></div>';
@@ -3586,7 +3590,7 @@ function key(v){if(state=='done'||!after)return;if(v=='SP'){if(cur){ent.push(cur
 // ---- remove a puzzle from Review
 $('#rm').onclick=()=>{if(!confirm('Remove this puzzle from Review?'))return;rev=rev.filter(x=>x[0]!=pz[0]);sv('kc_r',rev);L=L.filter(x=>x[0]!=pz[0]);idx=Math.max(0,idx-1);resolved=true;next()};
 // ---- report a puzzle (sent to a Google Sheet through an Apps Script web app)
-const FEEDBACK_URL='https://script.google.com/macros/s/AKfycbz1siB2zIdRWsxSCWOVb1KNizs_Vp7lpk0CA4-_3h2hAJRajzEh_441YFpv-I57TqXI/exec',FB_KEY='kc-2026',RS=['Too many moves to type','The solution looks wrong','Something else'];let rsn=0;
+const FEEDBACK_URL='https://script.google.com/macros/s/AKfycbz1siB2zIdRWsxSCWOVb1KNizs_Vp7lpk0CA4-_3h2hAJRajzEh_441YFpv-I57TqXI/exec',FB_KEY='kc-2026',RS=['Another move also works','The solution looks wrong','Something else'];let rsn=0;
 const cid=(()=>{let c=ld('kc_cid',null);if(!c){c=Math.random().toString(36).slice(2,10);sv('kc_cid',c)}return c})();
 $('#rp').onclick=e=>{e.currentTarget.blur();if(!pz)return;rsn=0;$('#rr').innerHTML='';RS.forEach((t,i)=>{const b=document.createElement('button');b.textContent=t;b.className=i==0?'sel':'';b.onclick=()=>{rsn=i;[...$('#rr').children].forEach((x,j)=>x.classList.toggle('sel',i==j))};$('#rr').append(b)});$('#rm2').value='';$('#rmsg').textContent='';$('#rpt').style.display='flex'};
 $('#rc').onclick=()=>{$('#rpt').style.display='none'};
@@ -3594,7 +3598,7 @@ async function fbFlush(){const q=ld('kc_fb',[]);if(!q.length||!FEEDBACK_URL||!na
 $('#rsd').onclick=()=>{if($('#hp').value){$('#rpt').style.display='none';return}const now=Date.now(),log=ld('kc_fl',[]).filter(t=>now-t<36e5);
  if(log.length>=5||(log.length&&now-log[log.length-1]<15e3)){$('#rmsg').textContent='Please wait a moment before sending another report.';return}
  const msg=$('#rm2').value.trim().slice(0,400);if(rsn==2&&!msg){$('#rmsg').textContent='Please write a short message.';return}
- const r={key:FB_KEY,cid,ts:new Date().toISOString(),id:pz[0],theme:(MODE=='review'?pz[4]:TH)||'',rating:pz[3],reason:RS[rsn],msg,fen:pz[1],moves:pz[2],typed:$('#tx').textContent.trim(),ver:'0.6.1'};
+ const r={key:FB_KEY,cid,ts:new Date().toISOString(),id:pz[0],theme:(MODE=='review'?pz[4]:TH)||'',rating:pz[3],reason:RS[rsn],msg,fen:pz[1],moves:pz[2],typed:$('#tx').textContent.trim(),ver:'0.6.2'};
  log.push(now);sv('kc_fl',log);const q=ld('kc_fb',[]);q.push(r);sv('kc_fb',q);$('#rpt').style.display='none';
  modal(FEEDBACK_URL?'Thank you! Your report was sent.':'Thank you! Reports are not connected yet, so it is saved on this device.');fbFlush()};
 window.addEventListener('online',fbFlush);fbFlush();
